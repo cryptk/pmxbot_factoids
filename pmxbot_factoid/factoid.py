@@ -89,7 +89,7 @@ def regexpfind(name, regexp, doc=None, **kwargs):
     ).decorate
 
 
-@regexpfind("createFactoid", r"^([^What|Where].+?) is (.*)")
+@regexpfind("createFactoid", r"^(?!What|Where)(.+?) is (.*)")
 def createFactoid(client, event, channel, nick, match):
     key = match[0][0].strip()
     factoid = match[0][1].strip()
