@@ -89,7 +89,7 @@ def regexpfind(name, regexp, doc=None, **kwargs):
     ).decorate
 
 
-@regexpfind("createFactoid", r"([^What|Where].+?) is (.*)")
+@regexpfind("createFactoid", r"^([^What|Where].+?) is (.*)")
 def createFactoid(client, event, channel, nick, match):
     key = match[0][0].strip()
     factoid = match[0][1].strip()
@@ -98,7 +98,7 @@ def createFactoid(client, event, channel, nick, match):
         yield ("But %s is already %s" % (key, currFactoid))
 
 
-@regexpfind("replaceFactoid", r"no, (.+?) is (.*)")
+@regexpfind("replaceFactoid", r"^no, (.+?) is (.*)")
 def replaceFactoid(client, event, channel, nick, match):
     key = match[0][0].strip()
     factoid = match[0][1].strip()
@@ -109,7 +109,7 @@ def replaceFactoid(client, event, channel, nick, match):
         yield "I failed to replace that factoid for some reason... Sorry..."
 
 
-@regexp("getFactoid", r"(?:What is|Where is) (.*[^?])?")
+@regexp("getFactoid", r"^(?:What is|Where is) (.*[^?])?")
 def getFactoid(client, event, channel, nick, match):
     key = match.group(1)
     flavors = ['I think that', 'Perhaps', 'Maybe', 'Possibly',
@@ -120,7 +120,7 @@ def getFactoid(client, event, channel, nick, match):
     if factoid is not None:
         yield ("%s %s is %s" % (random.choice(flavors), key, factoid))
 
-@regexp("delFactoid", r"forget (.*)")
+@regexp("delFactoid", r"^forget (.*)")
 def delFactoid(client, event, channel, nick, match):
     key = match.group(1)
     factoid = Factoid.store.delete_factoid(channel, key)
