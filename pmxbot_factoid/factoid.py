@@ -94,8 +94,8 @@ def createFactoid(client, event, channel, nick, match):
     key = match[0][0].strip()
     factoid = match[0][1].strip()
     result, currFactoid = Factoid.store.set_factoid(channel, key, factoid)
-    if not result:
-        yield ("But %s is already %s" % (key, currFactoid))
+#    if not result:
+#        yield ("But %s is already %s" % (key, currFactoid))
 
 
 @regexpfind("replaceFactoid", r"^no, (.+?) is (.*)")
